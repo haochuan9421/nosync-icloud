@@ -1,6 +1,6 @@
 {
   "name": "nosync-icloud",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "避免 iCloud 同步 node_modules（Avoid node_modules to sync with iCloud）",
   "main": "index.js",
   "bin": {
