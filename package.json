@@ -1,0 +1,25 @@
+{
+  "name": "nosync-icloud",
+  "version": "1.0.0",
+  "description": "避免 iCloud 同步 node_modules（Avoid node_modules to sync with iCloud）",
+  "main": "index.js",
+  "bin": {
+    "nosync": "./bin/nosync.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaoChuan9421/nosync-icloud.git"
+  },
+  "keywords": [
+    "nosync",
+    "iCloud",
+    "node_module",
+    "同步"
+  ],
+  "author": "郑昊川 <hc199421@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HaoChuan9421/nosync-icloud/issues"
+  },
+  "homepage": "https://github.com/HaoChuan9421/nosync-icloud#readme"
+}
