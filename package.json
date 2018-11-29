@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/HaoChuan9421/nosync-icloud/issues"
   },
-  "homepage": "https://github.com/HaoChuan9421/nosync-icloud#readme"
+  "homepage": "https://github.com/HaoChuan9421/nosync-icloud#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.19.0",
+    "inquirer": "^6.2.0",
+    "ora": "^3.0.0"
+  }
 }
