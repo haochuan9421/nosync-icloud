@@ -7,7 +7,7 @@ const program = require('commander');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const ora = require('ora');
-const checkForUpdate = require('update-check');
+const updateNotifier = require('update-notifier');
 
 const pwd = process.cwd(); // 当前目录
 const pkg = require('../package');
@@ -23,31 +23,31 @@ const basePath = path.join(pwd, program.folder); // 用户期望不同步的文�
 const nosyncPath = basePath + '.nosync'; // 同名的 nosync 型文件夹的路径
 
 // 检测 npm 版本，提示用户更新
-checkForUpdate(pkg).then(update => {
-  console.log(chalk.yellow(`\n检测到最新的版本：${pkg.version}`), chalk.white('-->'), chalk.green(update.latest), chalk.yellow('，建议您稍后更新！\n'));
-}).catch(() => {
-  console.log(chalk.red('\n检测更新失败，请查看您的网络状况！\n'));
-}).finally(() => {
-  // 无论版本检测成功与否，继续执行业务逻辑
-  checkPwd()
-    .then(() => createNosyncFolder())
-    .then(res => {
-      // 为 nosync 文件夹制作替身
-      fs.symlinkSync(nosyncPath, basePath, 'file');
-      // 结束进程指示器
-      spinner.stop();
-      // 如果 指定的 nosync 文件夹是 node_modules 并且 之前不存在 node_modules，则提示用户安装
-      if (program.folder === 'node_modules' && res.install) {
-        install();
-      } else {
-        // 输出成功提示并提示是否将文件夹添加到 .gitignore
-        addGitignore();
-      }
-    })
-    .catch(() => {
-      process.exit();
-    });
-});
+
+updateNotifier({
+  pkg,
+  updateCheckInterval: 1000 * 60 // 每小时
+}).notify();
+
+checkPwd()
+  .then(() => createNosyncFolder())
+  .then(res => {
+    // 为 nosync 文件夹制作替身
+    fs.symlinkSync(nosyncPath, basePath, 'file');
+    // 结束进程指示器
+    spinner.stop();
+    // 如果 指定的 nosync 文件夹是 node_modules 并且 之前不存在 node_modules，则提示用户安装
+    if (program.folder === 'node_modules' && res.install) {
+      install();
+    } else {
+      // 输出成功提示并提示是否将文件夹添加到 .gitignore
+      addGitignore();
+    }
+  })
+  .catch(() => {
+    process.exit();
+  });
+
 
 /**
  * 检测项目当前位置是否在 iCloud 目录中（有些用户可能使用 iCloud 同步桌面和文稿，给个友情提示）
