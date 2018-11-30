@@ -7,7 +7,7 @@
     <a href="https://npmcharts.com/compare/nosync-icloud?minimal=true"><img src="https://img.shields.io/npm/dm/nosync-icloud.svg" alt="Downloads"></a>
     <a href="https://github.com/HaoChuan9421/nosync-icloud/commits/master"><img src="https://img.shields.io/github/last-commit/haochuan9421/nosync-icloud.svg" alt="Commit"></a>
     <a href="https://github.com/HaoChuan9421/nosync-icloud/issues"><img src="https://img.shields.io/github/issues-closed/haochuan9421/nosync-icloud.svg" alt="Issues"></a>
-    <a href="https://www.npmjs.com/package/vue-ueditor-wrap"><img src="https://img.shields.io/npm/l/vue-ueditor-wrap.svg" alt="License"></a>
+    <a href="https://github.com/HaoChuan9421/nosync-icloud/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/nosync-icloud.svg" alt="License"></a>
 </p>
 
 [简体中文](https://github.com/HaoChuan9421/nosync-icloud/blob/master/docs/README_zh.md) [English](https://github.com/HaoChuan9421/nosync-icloud/blob/master/docs/README_en.md)
