@@ -1,4 +1,5 @@
 .DS_Store
+assets
 node_modules*
 .eslintrc.js
 yarn.lock

@@ -1,6 +1,6 @@
 {
   "name": "nosync-icloud",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "避免 iCloud 同步 node_modules（Avoid node_modules to sync with iCloud）",
   "bin": {
     "ns": "./bin/nosync.js",
@@ -26,7 +26,8 @@
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "inquirer": "^6.2.0",
-    "ora": "^3.0.0"
+    "ora": "^3.0.0",
+    "update-check": "^1.5.2"
   },
   "devDependencies": {
     "eslint": "^5.9.0"
