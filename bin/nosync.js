@@ -8,15 +8,21 @@ const chalk = require('chalk');
 const inquirer = require('inquirer');
 const ora = require('ora');
 const updateNotifier = require('update-notifier');
+const osLocale = require('os-locale');
 
 const pwd = process.cwd(); // 当前目录
 const pkg = require('../package');
+
+const locales = require('../locales/index.js'); // 语言包
+const locale = osLocale.sync().replace(/(_|-).*/, '').toLowerCase(); // 用户的语言环境
+const i18n = locales[locale];
+
 const spinner = ora('转化中 🐢 ...\n');
 
 program
   .version(pkg.version, '-v, --version')
-  .option('-f, --folder [name]', '禁止同步的[文件夹名]', 'node_modules')
-  .option('-g, --git [boolean]', '是否自动添加 .gitignore')
+  .option('-f, --folder [name]', i18n.folder, 'node_modules')
+  .option('-g, --git [boolean]', i18n.git)
   .parse(process.argv);
 
 const basePath = path.join(pwd, program.folder); // 用户期望不同步的文件夹的路径，默认是当前目录下的 node_modules
@@ -26,7 +32,7 @@ const nosyncPath = basePath + '.nosync'; // 同名的 nosync 型文件夹的路�
 
 updateNotifier({
   pkg,
-  updateCheckInterval: 1000 * 60 // 每小时
+  updateCheckInterval: 1000 * 60 * 60 // 每小时
 }).notify();
 
 checkPwd()
@@ -61,7 +67,7 @@ function checkPwd() {
         .prompt([
           {
             type: 'confirm',
-            message: '您当前的项目不在 iCloud 目录中，是否继续？',
+            message: i18n.pwd,
             name: 'continue'
           }
         ])
@@ -90,14 +96,14 @@ function createNosyncFolder() {
       if (program.folder === 'node_modules') {
         install();
       } else {
-        console.log(chalk.yellow(`\n${program.folder} 已不再同步到 iCloud 了，您无需重复执行！\n`));
+        console.log(chalk.yellow(i18n.existTip(program.folder)));
         reject();
       }
     } else if (!baseExist && nosyncExist) { // 2. 只存在 nosync，直接 resolve 后制作替身
       // basePath 可能存在无效的 SymbolicLink，这种情况的概率很低，但不删除的话会导致之后调用 fs.symlinkSync() 报错
       try {
         fs.unlinkSync(basePath);
-        console.log(`已移除无效的 ${program.folder} 快捷方式`);
+        console.log(i18n.removeTip(program.folder));
       } catch (error) {
         // do nothing and keep silence
       }
@@ -123,7 +129,7 @@ function createNosyncFolder() {
     } else { // 5. basePath 不存在 或者存在无效的 SymbolicLink
       try {
         fs.unlinkSync(basePath);
-        console.log(`已移除无效的 ${program.folder} 快捷方式`);
+        console.log(i18n.removeTip(program.folder));
       } catch (error) {
         // do nothing and keep silence
       }
@@ -143,12 +149,12 @@ function install() {
     .prompt([
       {
         type: 'list',
-        message: '请选择安装 node_modules 的方式？',
+        message: i18n.installTip,
         choices: [
           'yarn',
           'npm',
           'cnpm',
-          '暂不安装'
+          i18n.notInstall
         ],
         name: 'install'
       }
@@ -179,7 +185,7 @@ function install() {
  * 添加忽略规则到 .gitignore
  */
 function addGitignore() {
-  console.log(chalk.green(`\n大功告成，${program.folder} 将不再同步到 iCloud 👏 👏 👏\n`));
+  console.log(chalk.green(i18n.successTip(program.folder)));
 
   // 如果用户已通过命令行指定是否添加到 git，则不再提示
   if (String(program.git) === 'true') {
@@ -194,7 +200,7 @@ function addGitignore() {
     .prompt([
       {
         type: 'confirm',
-        message: `是否添加 ${program.folder}* 到 .gitignore？`,
+        message: i18n.addTip(program.folder),
         name: 'add'
       }
     ])
@@ -208,12 +214,12 @@ function addGitignore() {
     if (gitExist) {
       fs.appendFile('.gitignore', `\n${program.folder}*\n`, (err) => {
         if (err) throw err;
-        console.log(chalk.green('\n添加 .gitignore 成功\n'));
+        console.log(chalk.green(i18n.addSuccessTip));
       });
     } else {
       fs.writeFile('.gitignore', `.DS_Store\n${program.folder}*\n`, (err) => {
         if (err) throw err;
-        console.log(chalk.green('\n添加 .gitignore 成功\n'));
+        console.log(chalk.green(i18n.addSuccessTip));
       });
     }
   }
