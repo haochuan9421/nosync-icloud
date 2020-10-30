@@ -15,7 +15,7 @@ const pkg = require('../package');
 
 const locales = require('../locales/index.js'); // 语言包
 const locale = osLocale.sync().replace(/(_|-).*/, '').toLowerCase(); // 用户的语言环境
-const i18n = locales[locale];
+const i18n = locales[locale] ? locales[locale] : locales['en'];
 
 const spinner = ora('转化中 🐢 ...\n');
 
