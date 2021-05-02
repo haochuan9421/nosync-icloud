@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/HaoChuan9421/nosync-icloud#readme",
   "dependencies": {
-    "chalk": "^2.4.1",
-    "commander": "^2.19.0",
-    "inquirer": "^6.2.0",
-    "ora": "^3.0.0",
-    "os-locale": "^3.0.1",
-    "update-notifier": "^2.5.0"
+    "chalk": "^4.1.1",
+    "commander": "^7.2.0",
+    "inquirer": "^8.0.0",
+    "ora": "^5.4.0",
+    "os-locale": "^5.0.0",
+    "update-notifier": "^5.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.9.0"
+    "eslint": "^7.25.0"
   }
 }
