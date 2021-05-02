@@ -1,20 +1,12 @@
 module.exports = {
-  folder: "specify a folder that you do not want to sync",
-  git: "whether to automatically add .gitignore",
-  pwd: "Your project is not in the iCloud Drive, continue?",
-  installTip: "Choose your preferred way to install node_modules",
-  notInstall: "No, I will handle that myself",
-  addSuccessTip: "\n.gitignore is added successfully\n",
-  existTip(msg) {
-    return `\n${msg} is no longer syncing to iCloud, you don't need to do this twice!\n`;
-  },
-  removeTip(msg) {
-    return `Removed the invalid ${msg} link`;
-  },
-  successTip(msg) {
-    return `\nDone! ${msg} is no longer syncing to iCloud 👏 👏 👏\n`;
-  },
-  addTip(msg) {
-    return `Add ${msg}* to .gitignore?`;
-  },
+  folder: "Specify the folder you don't want to sync",
+  git: "Skip the step of adding the 'nosync folder' to .gitignore",
+  pwd: "Your current project is not in iCloud Drive. Do you want to continue?",
+  installTip: "Please choose how to install node_modules",
+  notInstall: "No, I will deal with it myself later",
+  addSuccessTip: "\nSucceeded in adding .gitignore\n",
+  existTip: (msg) => `\n${msg} is no longer synced to iCloud, you don't need to do this twice!\n`,
+  removeTip: (msg) => `Invalid ${msg} symlink removed`,
+  successTip: (msg) => `\nDone! ${msg} will no longer sync to iCloud Drive 👏 👏 👏\n`,
+  addTip: (msg) => `Add ${msg} to .gitignore?`,
 };
