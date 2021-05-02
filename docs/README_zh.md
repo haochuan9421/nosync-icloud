@@ -43,7 +43,7 @@ mkdir node_modules.nosync && ln -s node_modules.nosync node_modules
 
 ### 一个前端攻城狮的反击！
 
-难道就要这样将就？其实上面的那行命令完全可以做成一个可执行文件，这样每次需要时，只需要执行一个简短的命令就 OK 了。再联想到我们平时用 `npm` 全局安装的一些 `CLI` 工具，比如`vue init` 、`create-react-app`、`nodemon`等等，我觉得：身为一个前端，我应该做点什么了。于是 —— **nosync-icloud** 就诞生了👏👏👏🎉🎉🎉。
+难道就要这样将就？其实上面的那行命令完全可以做成一个可执行文件，这样每次需要时，只需要执行一个简短的命令就 OK 了。再联想到我们平时用 `npm` 全局安装的一些 `CLI` 工具，比如`vue init` 、`create-react-app`、`nodemon`等等，我觉得：身为一个前端，我应该做点什么了。于是 —— **nosync-icloud** 就诞生了 👏👏👏🎉🎉🎉。
 
 ### 如何使用
 
@@ -54,6 +54,7 @@ npm i -g nosync-icloud
 # or
 yarn global add nosync-icloud
 ```
+
 安装成功后会创建 `nosync` 和 `ns` （简写，作用相同）的全局命令。
 
 ##### 2. 使用
@@ -66,12 +67,12 @@ yarn global add nosync-icloud
 
 `nosync-icloud` 不仅可以 禁止 `iCloud` 自动同步 `node_modules`，你还可以通过 `ns -f foo` 指定任何你不希望同步的文件夹。
 
-指令 | 简写 | 作用
----|---|---
---version | -v | 查看当前版本号
---help | -h | 输出帮助信息
---folder | -f | 指定不同步到 iCloud 的文件夹，默认 node_modules，如： ns -f foo
---git | -g | 跳过提示，直接添加 .gitignore，可选：ns -g false，跳过提示，不添加 .gitignore
+| 指令      | 简写 | 作用                                                                          |
+| --------- | ---- | ----------------------------------------------------------------------------- |
+| --version | -v   | 查看当前版本号                                                                |
+| --help    | -h   | 输出帮助信息                                                                  |
+| --folder  | -f   | 指定不同步到 iCloud 的文件夹，默认 node_modules，如： ns -f foo               |
+| --git     | -g   | 跳过提示，直接添加 .gitignore，可选：ns -g false，跳过提示，不添加 .gitignore |
 
 ### 写在后面
 

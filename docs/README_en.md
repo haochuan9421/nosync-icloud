@@ -54,6 +54,7 @@ npm i -g nosync-icloud
 # or
 yarn global add nosync-icloud
 ```
+
 you'll get `nosync` and `ns` （for short）global command after installation.
 
 ##### 2. Usage
@@ -64,14 +65,14 @@ Go to the any project in `iCloud Drive`, open it in terminal and run `ns`. The `
 
 ##### 3. More options
 
-`nosync-icloud` can not only  avoid `node_modules` to sync with `iCloud`, but also any folder that you don't want to synchronize with `iCloud` by using `ns -f foo` to specify it.
+`nosync-icloud` can not only avoid `node_modules` to sync with `iCloud`, but also any folder that you don't want to synchronize with `iCloud` by using `ns -f foo` to specify it.
 
-Options | Abbreviation | Description
----|---|---
---version | -v | output the version number
---help | -h | output usage information
---folder | -f | specify a folder that you do not want to sync. default: `node_modules` e.g.  `ns -f foo`.
---git | -g | whether to automatically add `.gitignore`. e.g. `ns -g false`, skip prompt and don't add `.gitignore`.
+| Options   | Abbreviation | Description                                                                                            |
+| --------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| --version | -v           | output the version number                                                                              |
+| --help    | -h           | output usage information                                                                               |
+| --folder  | -f           | specify a folder that you do not want to sync. default: `node_modules` e.g. `ns -f foo`.               |
+| --git     | -g           | whether to automatically add `.gitignore`. e.g. `ns -g false`, skip prompt and don't add `.gitignore`. |
 
 ### Conclusion
 
