@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const os = require('os')
 
 const { program } = require("commander");
 const chalk = require("chalk");
@@ -57,14 +58,23 @@ checkPwdIsInICloud()
   });
 
 /**
- * 检测用户要禁止同步的文件夹是否在 iCloud 中，如果不在，则提示用户是否继续创建 nosync 文件夹
+ * 检测用户当前所在文件夹是否在 iCloud 中，如果不在，则提示用户是否继续创建 nosync 文件夹
  */
 function checkPwdIsInICloud() {
   return new Promise((resolve, reject) => {
-    if (/com~apple~clouddocs/i.test(basePath)) {
+    if (/com~apple~clouddocs/i.test(pwd)) {
       resolve({ continue: true });
-    } else {
-      inquirer
+      return;
+    } else if(pwd.indexOf('Desktop') !==-1 || pwd.indexOf('Documents') !==-1){
+      const homedir = os.homedir()
+      const cloudFolder = path.join(homedir, 'Library/Mobile Documents/com~apple~CloudDocs', path.relative(homedir, pwd));
+      if(fs.existsSync(cloudFolder)){
+        resolve({ continue: true });
+        return;
+      }
+    }
+
+    inquirer
         .prompt([
           {
             type: "confirm",
@@ -78,7 +88,6 @@ function checkPwdIsInICloud() {
         .catch((error) => {
           reject(error);
         });
-    }
   });
 }
 
