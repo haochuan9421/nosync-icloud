@@ -33,9 +33,18 @@ Many Web Developers are using Mac, iCloud is really convenience, especially when
 
 Of course, you can create a `node_modules.nosync` folder, and make an alias named `node_modules` for it. iCloud won't synchronize a file or folder which is end of `.nosync`, and, this don't have any side effect to your project, you can still use `npm install`.
 
+
 ```bash
-mkdir node_modules.nosync && ln -s node_modules.nosync node_modules
+mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules
 ```
+or an extended version with file type checks
+
+```bash
+[[ ! -L "node_modules" && -d "node_modules" ]] && mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules || echo "Failed: not-candidate-dir or already-done" >&2
+```
+
+<img src="https://github.com/t4g/nosync-icloud/raw/master/assets/example.png" />
+
 
 <img src="https://github.com/HaoChuan9421/nosync-icloud/raw/master/assets/nosync.png" />
 
@@ -59,7 +68,7 @@ you'll get `nosync` and `ns` （for short）global command after installation.
 
 ##### 2. Usage
 
-Open your project in the terminal and execute `ns`. The `ns` command will check the `node_modules` of the current project. If you have installed `node_modules`, then it will rename `node_modules` to `node_modules.nosync` and create an alias named `node_modules`. If you have not installed it before, it will provide three optional installation methods —— `npm`, `yarn`, `cnpm`, of course you can also choose to install it later. After the installation is complete, it will also prompt you whether to add `node_modules.nosync` to `.gitignore`.
+Open your project in the terminal and execute `nosync`. The `nosync` command will check the `node_modules` of the current project. If you have installed `node_modules`, then it will rename `node_modules` to `node_modules.nosync` and create an alias named `node_modules`. If you have not installed it before, it will provide three optional installation methods —— `npm`, `yarn`, `cnpm`, of course you can also choose to install it later. After the installation is complete, it will also prompt you whether to add `node_modules.nosync` to `.gitignore`.
 
 <img src="https://github.com/HaoChuan9421/nosync-icloud/raw/master/assets/terminal_en.png" />
 
