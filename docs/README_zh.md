@@ -44,7 +44,7 @@ mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules
 ```
 
 
-<img src="https://github.com/t4g/nosync-icloud/raw/master/assets/example.png" />
+<img src="https://github.com/haochuan9421/nosync-icloud/raw/master/assets/bash_example.png" />
 
 
 
