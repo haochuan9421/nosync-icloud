@@ -33,9 +33,18 @@ yarn global add nosync-icloud
 
 如何避免 iCloud 自动同步 `node_modules`？方法还是有的，你只需要创建一个 `node_modules.nosync` 文件夹，然后为它制作一个名为 `node_modules` 的替身（快捷方式）即可。iCloud 不会同步以 `.nosync` 结尾的文件或者文件夹，而这样做也不会影响到你的开发，你依然可以使用 `npm install`。
 
+
 ```bash
-mkdir node_modules.nosync && ln -s node_modules.nosync node_modules
+mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules
 ```
+或扩展版本
+
+```bash
+[[ ! -L "node_modules" && -d "node_modules" ]] && mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules || echo "Failed: not-candidate-dir or already-done" >&2
+```
+
+<img src="https://github.com/t4g/nosync-icloud/raw/master/assets/example.jpg" />
+
 
 <img src="https://github.com/HaoChuan9421/nosync-icloud/raw/master/assets/nosync.png" />
 
