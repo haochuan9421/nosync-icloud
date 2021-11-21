@@ -43,7 +43,10 @@ mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules
 [[ ! -L "node_modules" && -d "node_modules" ]] && mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules || echo "Failed: not-candidate-dir or already-done" >&2
 ```
 
-<img src="https://github.com/t4g/nosync-icloud/raw/master/assets/example.jpg" />
+
+<img src="https://github.com/t4g/nosync-icloud/raw/master/assets/example.png" />
+
+
 
 
 <img src="https://github.com/HaoChuan9421/nosync-icloud/raw/master/assets/nosync.png" />
