@@ -1,50 +1,54 @@
-⚠️ **警告**: 不再推荐使用这个工具！因为“.nosync + 软链接”不是一个完美的解决方案，在最新的 MacOS 中推荐使用**拓展属性**来避免 iCloud 同步。
+⚠️ **警告**: 不再推荐使用这个工具！因为".nosync + 软链接"不是一个完美的解决方案，在最新的 MacOS 中推荐使用"拓展属性"来避免 iCloud 同步。
 
 只需要在项目根目录下执行：
 
 ```
-xattr -w com.apple.fileprovider.ignore#P 1 node_modules
+xattr -w 'com.apple.fileprovider.ignore#P' 1 node_modules
 ```
 
-给 `node_modules` 文件夹添加一个属性就可以避免 iCloud 同步了。
+就可以避免 iCloud 同步 `node_modules` 了。设置该属性之后，整个 `node_modules` 文件夹会从 iCloud 及其他已同步设备中删除，如果其他设备重新安装了 `node_modules` 记得也要设置一遍这个属性。建议先执行 `mkdir node_modules && xattr -w 'com.apple.fileprovider.ignore#P' 1 node_modules` 再执行 `npm install`。
 
-如果想方便一点，可以在 `.zshrc` 中添加：
+如果想方便一点，可以在 `.zshrc` 中添加自定义函数：
 
 ```bash
-alias ns="xattr -w com.apple.fileprovider.ignore#P 1"
+nosync() {
+    # 如果没有指定文件夹，默认禁止 "node_modules" 和 ".git"
+    [[ $# -eq 0 ]] && set -- "node_modules" ".git"
+    
+    for arg in "$@"; do
+        mkdir -p "$arg"
+        xattr -w 'com.apple.fileprovider.ignore#P' 1 "$arg"
+    done
+}
 ```
 
-这样就可以简写成：
-
-```
-ns node_modules
-```
-
-设置该属性之后，整个 node_modules 文件夹会从 iCloud 及其他设备中删除，如果其他设备重新安装 node_modules 记得也要设置一遍这个拓展属性。建议先执行 `mkdir node_modules && ns node_modules` 再执行 `npm install`。
+这样只需要执行 `nosync` 就可以禁止 iCloud 同步项目的 `node_modules` 和 `.git` 文件夹了（如果文件夹不存在会先创建）。
 
 ⚠️ **Warning**: This tool is no longer recommended! Using ".nosync + symbolic link" is not a perfect solution. Instead, it's recommended to use **extended attributes** to prevent iCloud synchronization on the latest macOS.
 
-Simply run this in your project root directory:
+Simply run this command in your project root directory:
 
 ```
 xattr -w com.apple.fileprovider.ignore#P 1 node_modules
 ```
 
-This sets the property on the `node_modules` folder, preventing iCloud from syncing it.
+This sets the property on `node_modules` folder, preventing iCloud from syncing it. After setting this property, the entire `node_modules` folder will be deleted from iCloud and other synced devices. If other devices reinstall `node_modules`, remember to set this property as well. It is recommended to execute `mkdir node_modules && xattr -w 'com.apple.fileprovider.ignore#P' 1 node_modules` first and then `npm install`.
 
-For convenience, you can add the following alias to your .zshrc file:
+For convenience, you can add the following function to your .zshrc file:
 
 ```bash
-alias ns="xattr -w com.apple.fileprovider.ignore#P 1"
+nosync() {
+    # If no folder is specified, "node_modules" and ".git" will be added by default.
+    [[ $# -eq 0 ]] && set -- "node_modules" ".git"
+    
+    for arg in "$@"; do
+        mkdir -p "$arg"
+        xattr -w 'com.apple.fileprovider.ignore#P' 1 "$arg"
+    done
+}
 ```
 
-This allows you to shorten the command to:
-
-```
-ns node_modules
-```
-
-After setting this property, the entire node_modules folder will be deleted from iCloud and other devices. If other devices reinstall node_modules, remember to set this property as well. It is recommended to execute `mkdir node_modules && ns node_modules` first and then `npm install`.
+In this way, you only need to execute `nosync` to disable iCloud from synchronizing the `node_modules` and `.git` folders (they will be created if not exist).
 
 ---
 
